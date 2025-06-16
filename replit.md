@@ -91,6 +91,7 @@ Changelog:
 - June 15, 2025. Fixed API configuration errors: corrected apiRequest parameter order (HTTP method first), added missing PUT/DELETE routes for caçambas, implemented proper dialog state management for user editing with functional "Sair" button
 - June 15, 2025. Enhanced destruction registration form: converted caçamba field to dropdown populated from system configuration, updated máquinas and destinos finais to use dynamic dropdowns with real data from configuration management
 - June 16, 2025. Fixed Render deployment build error: resolved "client/index.html" entry point issue by providing correct build configuration and scripts for production deployment
+- June 16, 2025. Enhanced Render deployment: created robust build scripts to handle npm vulnerabilities, directory verification, and build validation with comprehensive error handling for production deployment
 ```
 
 ## User Preferences
