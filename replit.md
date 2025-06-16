@@ -90,6 +90,7 @@ Changelog:
 - June 15, 2025. Enhanced user interface: added "Sair" button alongside "Atualizar Usuário" in Sistema screen for better dialog management, moved "Tipos de Tara" configuration from Destruição section to Recebimento section for improved logical organization
 - June 15, 2025. Fixed API configuration errors: corrected apiRequest parameter order (HTTP method first), added missing PUT/DELETE routes for caçambas, implemented proper dialog state management for user editing with functional "Sair" button
 - June 15, 2025. Enhanced destruction registration form: converted caçamba field to dropdown populated from system configuration, updated máquinas and destinos finais to use dynamic dropdowns with real data from configuration management
+- June 16, 2025. Fixed Render deployment build error: resolved "client/index.html" entry point issue by providing correct build configuration and scripts for production deployment
 ```
 
 ## User Preferences
