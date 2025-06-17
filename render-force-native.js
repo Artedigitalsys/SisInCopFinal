@@ -21,12 +21,29 @@ dockerFiles.forEach(file => {
 });
 
 try {
-  // Force native Node.js build
+  // Force native Node.js build with clean install
   console.log('Installing dependencies...');
-  execSync('npm install --include=dev --no-audit --no-fund --legacy-peer-deps', { 
-    stdio: 'inherit',
-    env: { ...process.env, DOCKER_BUILDKIT: '0', COMPOSE_DOCKER_CLI_BUILD: '0' }
-  });
+  try {
+    execSync('npm ci --include=dev --no-audit --no-fund', { 
+      stdio: 'inherit',
+      env: { ...process.env, DOCKER_BUILDKIT: '0', COMPOSE_DOCKER_CLI_BUILD: '0' }
+    });
+  } catch (error) {
+    console.log('npm ci failed, falling back to npm install...');
+    execSync('npm install --include=dev --no-audit --no-fund --legacy-peer-deps', { 
+      stdio: 'inherit',
+      env: { ...process.env, DOCKER_BUILDKIT: '0', COMPOSE_DOCKER_CLI_BUILD: '0' }
+    });
+  }
+
+  // Verify vite is available
+  try {
+    execSync('npx vite --version', { stdio: 'pipe' });
+    console.log('Vite verified successfully');
+  } catch (error) {
+    console.log('Installing vite explicitly...');
+    execSync('npm install vite@^5.4.15 --save-dev', { stdio: 'inherit' });
+  }
 
   // Create build directories
   console.log('Creating build directories...');

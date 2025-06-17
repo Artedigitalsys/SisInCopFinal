@@ -3,7 +3,7 @@ services:
     name: sisincop-native
     env: node
     plan: free
-    buildCommand: npm install --include=dev --no-audit && mkdir -p dist/public && npx vite build --outDir dist/public --mode production && npx esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist --target=node20
+    buildCommand: node render-final-solution.js
     startCommand: node dist/index.js
     envVars:
       - key: NODE_ENV
