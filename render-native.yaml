@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: sisincop
+    env: node
+    runtime: node
+    plan: free
+    repo: https://github.com/your-repo/sisincop
+    branch: main
+    buildCommand: npm install --include=dev && mkdir -p dist/public && npx vite build --outDir dist/public --mode production && npx esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist --target=node20
+    startCommand: node dist/index.js
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 20.18.1
+    autoDeploy: false
