@@ -1,17 +1,28 @@
 #!/bin/bash
+set -e
 
-# Build script for Render deployment
-echo "Starting build process..."
+echo "=== Custom Build Script ==="
 
-# Install dependencies
-npm install
+# Install dependencies with dev packages
+npm install --include=dev --no-audit --no-fund --force
 
-# Build client
-echo "Building client..."
-cd client && npx vite build --outDir ../dist/public && cd ..
+# Clean build directory
+rm -rf dist
+mkdir -p dist/public
 
-# Build server
-echo "Building server..."
-npx esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+# Build using full paths to avoid PATH issues
+echo "Building frontend..."
+./node_modules/.bin/vite build --outDir dist/public --mode production
 
-echo "Build completed successfully!"
+echo "Building backend..."
+./node_modules/.bin/esbuild server/index.ts \
+  --platform=node \
+  --packages=external \
+  --bundle \
+  --format=esm \
+  --outdir=dist \
+  --target=node20
+
+echo "Build completed!"
+ls -la dist/
+ls -la dist/public/ | head -3
