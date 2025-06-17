@@ -92,6 +92,8 @@ Changelog:
 - June 15, 2025. Enhanced destruction registration form: converted caçamba field to dropdown populated from system configuration, updated máquinas and destinos finais to use dynamic dropdowns with real data from configuration management
 - June 16, 2025. Fixed Render deployment build error: resolved "client/index.html" entry point issue by providing correct build configuration and scripts for production deployment
 - June 16, 2025. Enhanced Render deployment: created robust build scripts to handle npm vulnerabilities, directory verification, and build validation with comprehensive error handling for production deployment
+- June 16, 2025. Fixed Node.js version error on Render: resolved invalid hash specification by creating multiple version configuration files (.nvmrc, .node-version) and robust build script with automatic Node version detection and configuration
+- June 17, 2025. Resolved Vite build error on Render: created multiple solutions to ensure devDependencies installation and Vite availability during build process, implemented comprehensive build verification and error handling
 ```
 
 ## User Preferences

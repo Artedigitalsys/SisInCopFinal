@@ -4,19 +4,16 @@ const path = require('path');
 
 console.log('=== Render Deployment Script ===');
 console.log('Working directory:', process.cwd());
+console.log('Node version:', process.version);
+console.log('Environment:', process.env.NODE_ENV || 'development');
 
 try {
   // Install all dependencies (including dev dependencies for build)
   console.log('Installing dependencies...');
-  execSync('npm ci', { stdio: 'inherit' });
+  execSync('npm install --no-audit --no-fund', { stdio: 'inherit' });
 
-  // Fix security vulnerabilities
-  console.log('Fixing security vulnerabilities...');
-  try {
-    execSync('npm audit fix --force', { stdio: 'inherit' });
-  } catch (auditError) {
-    console.log('Audit fix completed with warnings (continuing...)');
-  }
+  // Skip audit fix to avoid build issues
+  console.log('Skipping audit fix for build stability...');
 
   // Ensure build directories exist
   console.log('Creating build directories...');
