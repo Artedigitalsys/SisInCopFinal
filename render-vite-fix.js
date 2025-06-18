@@ -30,10 +30,10 @@ try {
   }
   fs.mkdirSync(publicDir, { recursive: true });
 
-  // Build frontend with explicit root and config
+  // Build frontend using existing vite.config.ts
   console.log('Building frontend...');
   const viteBin = path.join(process.cwd(), 'node_modules', '.bin', 'vite');
-  const buildCmd = `${viteBin} build --root client --config ../vite.config.ts --outDir ../dist/public --mode production`;
+  const buildCmd = `${viteBin} build --config vite.config.ts --mode production`;
   
   execSync(buildCmd, {
     stdio: 'inherit',
@@ -72,9 +72,9 @@ try {
   console.log('Attempting alternative build approach...');
   
   try {
-    // Alternative: Use vite config with explicit client root
+    // Alternative: Use vite config without --root option
     console.log('Using alternative vite build...');
-    execSync('npx vite build --root client --outDir ../dist/public --mode production', {
+    execSync('npx vite build --config vite.config.ts --mode production', {
       stdio: 'inherit',
       env: { ...process.env, NODE_ENV: 'production' }
     });
@@ -87,6 +87,24 @@ try {
     
   } catch (altError) {
     console.error('Alternative build also failed:', altError.message);
-    process.exit(1);
+    
+    // Final fallback: try npx without --root
+    try {
+      console.log('Trying final fallback without --root...');
+      execSync('npx vite build --config vite.config.ts --mode production', {
+        stdio: 'inherit',
+        env: { ...process.env, NODE_ENV: 'production' }
+      });
+      
+      execSync('npx esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist --target=node20', {
+        stdio: 'inherit'
+      });
+      
+      console.log('Final fallback succeeded!');
+      
+    } catch (finalError) {
+      console.error('All build attempts failed:', finalError.message);
+      process.exit(1);
+    }
   }
 }

@@ -5,9 +5,9 @@ O Render está ignorando o `render.yaml` e executando automaticamente `npm run b
 
 ## Soluções para Configurar no Painel Render
 
-### Opção 1 - Build Command Recomendado (Resolve ponto de entrada)
+### Opção 1 - Build Command Recomendado (Resolve --root não suportado)
 ```bash
-node render-vite-fix.js
+node render-final-solution.cjs
 ```
 
 ### Opção 2 - Script Bash
