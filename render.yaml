@@ -3,7 +3,7 @@ services:
     name: sisincop-native
     env: node
     plan: free
-    buildCommand: node render-override.js
+    buildCommand: node render-vite-fix.js
     startCommand: node dist/index.js
     envVars:
       - key: NODE_ENV

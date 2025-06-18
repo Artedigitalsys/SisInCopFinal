@@ -12,7 +12,7 @@ mkdir -p dist/public
 
 # Build using full paths to avoid PATH issues
 echo "Building frontend..."
-./node_modules/.bin/vite build --outDir dist/public --mode production
+./node_modules/.bin/vite build --config vite.config.ts --mode production
 
 echo "Building backend..."
 ./node_modules/.bin/esbuild server/index.ts \

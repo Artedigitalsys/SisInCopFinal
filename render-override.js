@@ -37,9 +37,9 @@ try {
   }
   fs.mkdirSync('dist/public', { recursive: true });
 
-  // Build frontend with absolute path
+  // Build frontend with absolute path and correct config
   console.log('Building frontend...');
-  execSync(`${vitePath} build --outDir dist/public --mode production --emptyOutDir`, {
+  execSync(`${vitePath} build --config vite.config.ts --mode production`, {
     stdio: 'inherit',
     env: { ...process.env, NODE_ENV: 'production' }
   });
@@ -70,8 +70,8 @@ try {
   console.error('Attempting fallback build...');
   
   try {
-    // Fallback: try with npx
-    execSync('npx vite build --outDir dist/public --mode production', { stdio: 'inherit' });
+    // Fallback: try with npx using correct config
+    execSync('npx vite build --config vite.config.ts --mode production', { stdio: 'inherit' });
     execSync('npx esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist --target=node20', { stdio: 'inherit' });
     console.log('Fallback build succeeded!');
   } catch (fallbackError) {

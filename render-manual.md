@@ -5,9 +5,9 @@ O Render está ignorando o `render.yaml` e executando automaticamente `npm run b
 
 ## Soluções para Configurar no Painel Render
 
-### Opção 1 - Build Command Recomendado
+### Opção 1 - Build Command Recomendado (Resolve ponto de entrada)
 ```bash
-node render-override.js
+node render-vite-fix.js
 ```
 
 ### Opção 2 - Script Bash
@@ -17,12 +17,12 @@ chmod +x build.sh && ./build.sh
 
 ### Opção 3 - Comando Direto Completo
 ```bash
-npm install --include=dev --force && rm -rf dist && mkdir -p dist/public && ./node_modules/.bin/vite build --outDir dist/public --mode production && ./node_modules/.bin/esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist --target=node20
+npm install --include=dev --force && rm -rf dist && mkdir -p dist/public && ./node_modules/.bin/vite build --config vite.config.ts --mode production && ./node_modules/.bin/esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist --target=node20
 ```
 
 ### Opção 4 - Fallback Simples
 ```bash
-npm install --include=dev && npx vite build --outDir dist/public && npx esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist --target=node20
+npm install --include=dev && npx vite build --config vite.config.ts --mode production && npx esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist --target=node20
 ```
 
 ## Start Command

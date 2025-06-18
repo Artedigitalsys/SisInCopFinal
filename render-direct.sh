@@ -15,7 +15,7 @@ export PATH="$PWD/node_modules/.bin:$PATH"
 
 # Build frontend
 echo "Building frontend..."
-vite build --outDir dist/public --mode production
+vite build --config vite.config.ts --mode production
 
 # Build backend
 echo "Building backend..."
